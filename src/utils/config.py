@@ -16,11 +16,12 @@ class Config():
         maplePos, self.mapleWID = vision.getMapleRegion()
         self.maplePos = maplePos[:2] # only need top left corner pos
         self.ctrl = Controller(self.maplePos)
+        self.OOBLoc = (10, 10)
 
         # Monster Farm specific UI locations (these are relative points)
         self.decFarmButtLoc = None
         self.myMonsterLoc = None
-        self.mobLocs = None
+        self.mobLocs = list()
         self.starLoc = None
 
         # action locs (these are specific heights)
@@ -79,11 +80,23 @@ class Config():
         self.ctrl.moveMouseTo(tempUsableLoc)
         self.ctrl.mouseClick()
         self.buyLoc = vision.absPtToRelPt(vision.getCenter(vision.searchFirstInstance(C_DEFAULT_IMGS['midBoxAsset'])), 
-                                            self.maplePos)
+                                          self.maplePos)
         self.ctrl.moveMouseTo(self.buyLoc)
-        self.ctrl.moveMouseTo((10, 10))
+        self.ctrl.moveMouseTo(self.OOBLoc)
         self.ctrl.mouseClick()
         self.ctrl.kbPressEsc()
+
+        # Now find nurture/release locs
+        self.ctrl.moveMouseTo(self.myMonsterLoc)
+        self.ctrl.mouseClick()
+        self.ctrl.moveMouseTo(self.mobLocs[0])
+        self.ctrl.mouseRClick()
+        self.releaseLoc = vision.absPtToRelPt(vision.getCenter(vision.searchFirstInstance(C_DEFAULT_IMGS['releaseText'])), 
+                                              self.maplePos)[1]
+        self.nurtureLoc = vision.absPtToRelPt(vision.getCenter(vision.searchFirstInstance(C_DEFAULT_IMGS['nurtureText'])), 
+                                              self.maplePos)[1]
+        self.ctrl.moveMouseTo(self.OOBLoc)
+        self.ctrl.mouseClick()
 
 def detectAndLoadConfigFile(confPath: str = "./src/bot.conf") -> 'Config':
     initConfig = Config()

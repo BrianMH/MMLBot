@@ -28,6 +28,10 @@ class Controller:
     def mouseClick(self):
         pyautogui.click()
 
+    @sDec
+    def mouseRClick(self):
+        pyautogui.click("right")
+
     def scrollUp(self):
         pyautogui.scroll(1)
 

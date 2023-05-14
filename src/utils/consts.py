@@ -22,7 +22,9 @@ C_DEFAULT_IMGS = {
     'UIAsset'       : './src/ImgResources/farmUI.png',
     'shopButt'      : './src/ImgResources/shopButtAsset.png',
     'usableButt'    : './src/ImgResources/usableTextAsset.png',
-    'midBoxAsset'   : './src/ImgResources/storePresentAsset.png'
+    'midBoxAsset'   : './src/ImgResources/storePresentAsset.png',
+    'releaseText'   : './src/ImgResources/releaseAsset.png',
+    'nurtureText'   : './src/ImgResources/nurtureAsset.png'
 }
 
 ########################
