@@ -5,9 +5,9 @@ Manages the actual keypresses and other nonsense related to user inputs. It's pr
 much just a small wrapper around pyautogui
 """
 import pyautogui
-from consts import DEBUG_FLAG, CONT_MOUSE_MOVE_DUR, CONT_DELAY
-from vision import relPtToAbsPt
 from time import sleep
+from .consts import DEBUG_FLAG, CONT_MOUSE_MOVE_DUR, CONT_DELAY
+from .vision import relPtToAbsPt
 
 def sDec(func):
     def sleepWrapper(*args, **kwargs):
@@ -30,7 +30,7 @@ class Controller:
 
     @sDec
     def mouseRClick(self):
-        pyautogui.click("right")
+        pyautogui.click(button = "right")
 
     def scrollUp(self):
         pyautogui.scroll(1)
