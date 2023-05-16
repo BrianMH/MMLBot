@@ -11,20 +11,26 @@ The main bot script. The general gist of information flow in this bot will be th
             c) Nurture (M-n) monsters
             d) Release (M-n) monsters beginning from the right
 """
-from src.utils import config, controller
+from utils.consts import DEBUG_FLAG
+from utils import config, controller, vision
 
-#################
-# BOT EXECUTION #
-#################
+class MLBot:
+    def __init__(self, cfgLoc: str = "./config.cfg"):
+        '''
+            A class that combines msot of the utilities together in order to
+            provide a more user friendly API. Since this is a monster life bot,
+            it won't be made very generic...
+
+            Args:
+                cfgLoc: Location to find/create the config file
+        '''
+        # initialize controller and configuration file
+        self.config = config.Config.detectAndLoadConfigFile(cfgLoc)
+        self.controller = controller.Controller(relWindowPos = self.config.maplePos)
+
+##############
+# SMOKE TEST #
+##############
 if __name__ == "__main__":
-    # Prompt for user to enter ML
-    print("Enter Monster Life and move to the top-left of the display.\nEnter y when ready...")
-    userInput = input()
-    while userInput.strip() != 'y':
-        userInput = input()
-
-    # Acquire settings and update it if necessary
-    curCfg = config.Config.detectAndLoadConfigFile()
-
-    # Begin loop until either lvl 40 or completely broke.
-    
+    # Creation is really the only test needed for this example
+    bot = MLBot()

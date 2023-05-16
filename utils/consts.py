@@ -15,16 +15,16 @@ V_PRESET_CROP = 0.2               # percentage of crop estate to use (% val in f
 # CONFIG.PY CONSTS #
 ####################
 C_DEFAULT_IMGS = {
-    'decFarmText'   : './src/ImgResources/decorateFarmText.png',
-    'myMobLoc'      : './src/ImgResources/myMonsterText.png',
-    'mobLock'       : './src/ImgResources/mobAsset.png',
-    'levelAsset'    : './src/ImgResources/lvlAsset.png',
-    'UIAsset'       : './src/ImgResources/farmUI.png',
-    'shopButt'      : './src/ImgResources/shopButtAsset.png',
-    'usableButt'    : './src/ImgResources/usableTextAsset.png',
-    'midBoxAsset'   : './src/ImgResources/storePresentAsset.png',
-    'releaseText'   : './src/ImgResources/releaseAsset.png',
-    'nurtureText'   : './src/ImgResources/nurtureAsset.png'
+    'decFarmText'   : './ImgResources/decorateFarmText.png',
+    'myMobLoc'      : './ImgResources/myMonsterText.png',
+    'mobLock'       : './ImgResources/mobAsset.png',
+    'levelAsset'    : './ImgResources/lvlAsset.png',
+    'UIAsset'       : './ImgResources/farmUI.png',
+    'shopButt'      : './ImgResources/shopButtAsset.png',
+    'usableButt'    : './ImgResources/usableTextAsset.png',
+    'midBoxAsset'   : './ImgResources/storePresentAsset.png',
+    'releaseText'   : './ImgResources/releaseAsset.png',
+    'nurtureText'   : './ImgResources/nurtureAsset.png'
 }
 C_OOB_POS = (300, 10) # default position to place cursor on the maple screen
 

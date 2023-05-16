@@ -63,25 +63,6 @@ class OCREvaluator:
             This function is fairly hard-coded, but it can be overwritten if
             needed.
         '''
-        binarized = cv2.threshold(cv2.medianBlur(res, 3), 100, 255, cv2.THRESH_BINARY)[1]
+        binarized = cv2.threshold(cv2.medianBlur(inImg, 3), 100, 255, cv2.THRESH_BINARY)[1]
         return cv2.erode(binarized, np.ones((3, 3), np.uint8), iterations=1)
     
-if __name__ == "__main__":
-    from vision import searchFirstInstance
-    
-    # This tests the algorithm manually with part of the UI that has
-    # the most text associated with it.
-    ocrEv = OCREvaluator()
-    rectCoords = searchFirstInstance("./src/ImgResources/farmUI.png")
-    res = ocrEv.preprocessWithRegion(rectCoords, "./src/ImgResources/farmUI.png")
-
-    # Now detect and see what it reads and show what was viewed
-    print("Detected text is {}".format(ocrEv.processImage(res)))
-    cv2.imshow("Test UI Elem", OCREvaluator.defaultPreprocessing(res))
-
-    # Then do the same for the other UI element that needs reading
-    rectCoords = searchFirstInstance("./src/ImgResources/lvlAsset.png")
-    res = ocrEv.preprocessWithRegion(rectCoords, "./src/ImgResources/lvlAsset.png")
-    print("Detected text is {}".format(ocrEv.processImage(res)))
-    cv2.imshow("Test Lv Elem", OCREvaluator.defaultPreprocessing(res))
-    cv2.waitKey(0)

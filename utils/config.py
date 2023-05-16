@@ -6,7 +6,7 @@ to exist (bot.conf) that determines some fairly basic information about the syst
 and adjusts various files to manage saved values.
 """
 import os.path                      ## pre-config check
-from . import ocr                   ## ocr ops
+from . import ocr                  ## ocr ops
 from . import vision                ## basic vision ops
 from .controller import Controller   ## Loop Execution
 from .consts import C_DEFAULT_IMGS, DEBUG_FLAG, C_OOB_POS
@@ -19,6 +19,15 @@ class FarmInfo():
         self.waru = waruCnt
         self.mobCnt = mobCnt
         self.maxMobs = mobMax
+
+    def __str__(self) -> str:
+        return ("\n\nAcquired Farm Stats:\n" +
+                "\tFarm Level: {}\n".format(self.level) +
+                "\tFarm Beauty: {}\n".format(self.beauty) + 
+                "\tFarm Gems: {}\n".format(self.beauty) + 
+                "\tFarm Waru: {}\n".format(self.waru) +
+                "\tFarm Mob Count: {}/{}".format(self.mobCnt,
+                                                self.maxMobs))
 
 class Config():
     def __init__(self):
@@ -171,8 +180,25 @@ class Config():
         maplePos, self.mapleWID = vision.getMapleRegion()
         self.maplePos = maplePos[:2] # only need top left corner pos
 
+    def __str__(self) -> str:
+        return ("Current configuration settings:\n" + 
+                "\tDecorate Farm Button Loc: {}\n".format(self.decFarmButtLoc) + 
+                "\tMy Monster Button Loc: {}\n".format(self.myMonsterLoc) + 
+                "\tLevel UI Text Area: {}\n".format(self.levelBox) +
+                "\tInfo UI Text Area: {}\n".format(self.infoBox) + 
+                "\tMob Entity Locations: {}\n".format(self.mobLocs) +
+                "\n" +
+                "\tMob Release Height: {}\n".format(self.releaseY) +
+                "\tMob Nurture Height: {}\n".format(self.nurtureY) +
+                "\n" + 
+                "\tShop Button Loc: {}\n".format(self.shopButtLoc) +
+                "\tBuy Button Loc: {}\n".format(self.buyLoc) +
+                "\n\nRun specific configurations:\n" +
+                "\tMaple WID: {}".format(self.mapleWID) + 
+                "\tMaple Pos: {}".format(self.maplePos))
+
     @staticmethod
-    def detectAndLoadConfigFile(confPath: str = "./src/bot.conf") -> 'Config':
+    def detectAndLoadConfigFile(confPath: str) -> 'Config':
         # load file from memory
         if os.path.exists(confPath):
             initConfig = Config.loadFile(confPath)
@@ -187,32 +213,3 @@ class Config():
         initConfig.extractCurrentFarmState()
 
         return initConfig
-
-# smoke testing
-if __name__ == "__main__":
-    # First test simple configuration
-    curConf = Config.detectAndLoadConfigFile()
-    print("Current configuration settings:\n" +
-          "\tDecorate Farm Button Loc: {}\n".format(curConf.decFarmButtLoc) + 
-          "\tMy Monster Button Loc: {}\n".format(curConf.myMonsterLoc) + 
-          "\tLevel UI Text Area: {}\n".format(curConf.levelBox) +
-          "\tInfo UI Text Area: {}\n".format(curConf.infoBox) + 
-          "\tMob Entity Locations: {}\n".format(curConf.mobLocs) +
-          "\n" +
-          "\tMob Release Height: {}\n".format(curConf.releaseY) +
-          "\tMob Nurture Height: {}\n".format(curConf.nurtureY) +
-          "\n" + 
-          "\tShop Button Loc: {}\n".format(curConf.shopButtLoc) +
-          "\tBuy Button Loc: {}\n".format(curConf.buyLoc))
-    print("\n\nRun specific configurations:\n" +
-          "\tMaple WID: {}".format(curConf.mapleWID) + 
-          "\tMaple Pos: {}".format(curConf.maplePos))
-    
-    # And now test OCR recognition of farm state
-    print("\n\nAcquired Farm Stats:\n" +
-          "\tFarm Level: {}\n".format(curConf.farmInfo.level) +
-          "\tFarm Beauty: {}\n".format(curConf.farmInfo.beauty) + 
-          "\tFarm Gems: {}\n".format(curConf.farmInfo.beauty) + 
-          "\tFarm Waru: {}\n".format(curConf.farmInfo.waru) +
-          "\tFarm Mob Count: {}/{}".format(curConf.farmInfo.mobCnt,
-                                           curConf.farmInfo.maxMobs))
