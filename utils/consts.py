@@ -41,3 +41,8 @@ CONT_SCROLL_DIST = 500
 # OCR.PY CONSTS #
 #################
 O_MAX_PIX_DIST = 30
+
+#################
+# BOT SPECIFICS #
+#################
+ML_EXTRA_BUYS = 10

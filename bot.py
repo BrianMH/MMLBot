@@ -11,10 +11,9 @@ The main bot script. The general gist of information flow in this bot will be th
             c) Nurture (M-n) monsters
             d) Release (M-n) monsters beginning from the right
 """
-from utils.consts import DEBUG_FLAG
+from utils.consts import DEBUG_FLAG, ML_EXTRA_BUYS
 from utils import config, controller
 from time import sleep
-import pyautogui
 
 class MLBot:
     def __init__(self, cfgLoc: str = "./config.cfg", boxCost: int = 940):
@@ -70,6 +69,14 @@ class MLBot:
 
             self.curBoxCount += 1
             self.config.farmInfo.waru -= self.boxWaruCost
+            sleep(0.2)
+
+        # buy extra in case the program bugged out earlier
+        for _ in range(ML_EXTRA_BUYS):
+            self.controller.mouseClick()
+            self.controller.kbPressEnter()
+            sleep(0.1)
+            self.controller.kbPressEnter()
             sleep(0.2)
 
         # then exit the store
