@@ -1,9 +1,9 @@
 """
 startBot.py
 
-Wrapper that begins the bot and handles the user prompts.
+Wrapper that begins the bot and handles a few initial user prompts.
 """
-from src import bot
+import bot
 
 #################
 # BOT EXECUTION #
@@ -14,3 +14,6 @@ if __name__ == "__main__":
     userInput = input()
     while userInput.strip() != 'y':
         userInput = input()
+
+    curBot = bot.MLBot()
+    curBot.executeLoop()

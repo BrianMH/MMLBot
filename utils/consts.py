@@ -24,7 +24,9 @@ C_DEFAULT_IMGS = {
     'usableButt'    : './ImgResources/usableTextAsset.png',
     'midBoxAsset'   : './ImgResources/storePresentAsset.png',
     'releaseText'   : './ImgResources/releaseAsset.png',
-    'nurtureText'   : './ImgResources/nurtureAsset.png'
+    'nurtureText'   : './ImgResources/nurtureAsset.png',
+    'boxAsset'      : './ImgResources/secondhandBox.png',
+    'releaseCheck'  : './ImgResources/releaseCheckMarkAsset.png'
 }
 C_OOB_POS = (300, 10) # default position to place cursor on the maple screen
 
@@ -33,6 +35,7 @@ C_OOB_POS = (300, 10) # default position to place cursor on the maple screen
 ########################
 CONT_MOUSE_MOVE_DUR = 0.3
 CONT_DELAY = 0.2
+CONT_SCROLL_DIST = 500
 
 #################
 # OCR.PY CONSTS #

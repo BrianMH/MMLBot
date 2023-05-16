@@ -7,7 +7,7 @@ positions passed into it.
 """
 import pyautogui
 from time import sleep
-from .consts import CONT_MOUSE_MOVE_DUR, CONT_DELAY
+from .consts import CONT_MOUSE_MOVE_DUR, CONT_DELAY, CONT_SCROLL_DIST
 from .vision import relPtToAbsPt
 
 def sDec(func):
@@ -22,8 +22,11 @@ class Controller:
         self.relPos = relWindowPos
         self.curPressed = False
 
-    def moveMouseTo(self, newPos):
+    def moveMouseTo(self, newPos) -> None:
         pyautogui.moveTo(*relPtToAbsPt(newPos, self.relPos), CONT_MOUSE_MOVE_DUR)
+
+    def moveMouseToHeight(self, height) -> None:
+        pyautogui.moveTo(*pyautogui.position(y=height+self.relPos[1]), CONT_MOUSE_MOVE_DUR)
 
     def setRelativePos(self, relWindowPos: tuple[int, int]) -> None:
         self.relPos = relWindowPos
@@ -36,11 +39,14 @@ class Controller:
     def mouseRClick(self) -> None:
         pyautogui.click(button = "right")
 
-    def scrollUp(self) -> None:
-        pyautogui.scroll(1)
+    def scrollUp(self, * , amount: int = 1) -> None:
+        pyautogui.scroll(amount * CONT_SCROLL_DIST)
 
-    def scrollDown(self) -> None:
-        pyautogui.scroll(-1)
+    def scrollDown(self, * , amount:int = -1) -> None:
+        pyautogui.scroll(amount * CONT_SCROLL_DIST)
+
+    def kbPressEnter(self) -> None:
+        pyautogui.press('enter')
 
     def kbPressEsc(self) -> None:
         pyautogui.press('esc')

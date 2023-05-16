@@ -1,3 +1,8 @@
+'''
+config_vision.py
+
+Tests the vision util module
+'''
 from utils.vision import *
 import numpy as np
 import unittest

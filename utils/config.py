@@ -43,10 +43,12 @@ class Config():
         self.myMonsterLoc = None
         self.mobLocs = list()
         self.starLoc = None
+        self.boxLoc = None
 
         # action locs (these are specific heights)
         self.releaseY = None
         self.nurtureY = None
+        self.releaseCheckLoc = None
 
         # UI elements (these are ranges that need to be parsed)
         self.levelBox = None
@@ -79,7 +81,8 @@ class Config():
         uiImg = self.ocrParser.preprocessWithRegion(
                         vision.relBoxToAbsBox(self.infoBox, self.maplePos),
                         C_DEFAULT_IMGS['UIAsset'])
-        uiList = self.ocrParser.processImage(uiImg).replace("/", " ").split(" ")
+        uiList = self.ocrParser.processImage(uiImg).replace("/", " ").split()
+        print(uiList)
         self.farmInfo = FarmInfo(level, int(uiList[0]), int(uiList[1]), int(uiList[2]),
                                  int(uiList[3]), int(uiList[4]))
         if DEBUG_FLAG:
@@ -125,6 +128,8 @@ class Config():
         self.ctrl.mouseClick()
         self.shopButtLoc = vision.absPtToRelPt(vision.getCenter(vision.searchFirstInstance(C_DEFAULT_IMGS['shopButt'])), 
                                                self.maplePos)
+        self.boxLoc = vision.absPtToRelPt(vision.getCenter(vision.searchFirstInstance(C_DEFAULT_IMGS['boxAsset'])),
+                                                self.maplePos)
         
         # Check shop and hover over buy button
         self.ctrl.moveMouseTo(self.shopButtLoc)
@@ -149,8 +154,13 @@ class Config():
                                               self.maplePos)[1]
         self.nurtureY = vision.absPtToRelPt(vision.getCenter(vision.searchFirstInstance(C_DEFAULT_IMGS['nurtureText'])), 
                                               self.maplePos)[1]
-        self.ctrl.moveMouseTo(self.OOBLoc)
+        self.ctrl.moveMouseToHeight(self.releaseY)
         self.ctrl.mouseClick()
+        self.releaseCheckLoc = vision.absPtToRelPt(vision.getCenter(vision.searchFirstInstance(C_DEFAULT_IMGS['releaseCheck'])), 
+                                              self.maplePos)
+        self.ctrl.moveMouseTo(self.releaseCheckLoc)
+        self.ctrl.mouseClick()
+        self.ctrl.kbPressEnter()
 
     ############################
     # SAVING / LOADING METHODS #
@@ -190,6 +200,7 @@ class Config():
                 "\n" +
                 "\tMob Release Height: {}\n".format(self.releaseY) +
                 "\tMob Nurture Height: {}\n".format(self.nurtureY) +
+                "\tRelease Check Pos: {}\n".format(self.releaseCheckLoc) +
                 "\n" + 
                 "\tShop Button Loc: {}\n".format(self.shopButtLoc) +
                 "\tBuy Button Loc: {}\n".format(self.buyLoc) +

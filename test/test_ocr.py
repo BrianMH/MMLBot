@@ -1,3 +1,8 @@
+'''
+config_ocr.py
+
+Tests the OCR util module
+'''
 from utils.ocr import OCREvaluator
 import cv2
 import unittest

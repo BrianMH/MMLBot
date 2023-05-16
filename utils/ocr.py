@@ -64,5 +64,5 @@ class OCREvaluator:
             needed.
         '''
         binarized = cv2.threshold(cv2.medianBlur(inImg, 3), 100, 255, cv2.THRESH_BINARY)[1]
-        return cv2.erode(binarized, np.ones((3, 3), np.uint8), iterations=1)
+        return cv2.erode(binarized, np.ones((3, 3), np.uint8), iterations=2)
     
